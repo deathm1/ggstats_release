@@ -1,0 +1,40 @@
+{
+  "name": "ggstats.in",
+  "version": "1.0.0",
+  "description": "This is the backend server of ggstats.in",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "app": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
+    "client": "npm run start --prefix ../client",
+    "server": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/deathm1/ggStats.in.git"
+  },
+  "author": "deathm1",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/deathm1/ggStats.in/issues"
+  },
+  "homepage": "https://github.com/deathm1/ggStats.in#readme",
+  "dependencies": {
+    "axios": "^0.27.2",
+    "body-parser": "^1.20.0",
+    "concurrently": "^7.3.0",
+    "cors": "^2.8.5",
+    "create-react-app": "^5.0.1",
+    "dotenv": "^16.0.2",
+    "express": "^4.18.1",
+    "express-validator": "^6.14.2",
+    "helmet": "^5.1.1",
+    "ini": "^3.0.0",
+    "mongoose": "^6.5.0",
+    "tar": "^6.1.11",
+    "winston": "^3.8.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.19"
+  }
+}
