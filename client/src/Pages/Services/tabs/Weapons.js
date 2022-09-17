@@ -51,6 +51,8 @@ export default function Matches(props) {
                         <TableCell>{value.value}</TableCell>
                       </TableRow>
                     )
+                  } else {
+                    return <></>
                   }
                 })}
               </TableBody>
@@ -96,6 +98,8 @@ export default function Matches(props) {
                         <TableCell>{value.value}</TableCell>
                       </TableRow>
                     )
+                  } else {
+                    return <></>
                   }
                 })}
               </TableBody>

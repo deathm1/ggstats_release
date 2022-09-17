@@ -1,27 +1,26 @@
-import React from "react";
-import { Routes, Route } from "react-router-dom";
-import { useState } from "react";
-import { createTheme } from "@mui/material";
-import { ThemeProvider } from "@mui/material/styles";
-import { CssBaseline } from "@mui/material";
-import AppBar from "../AppBar/AppBar";
-import Footer from "../Footer/Footer";
-import Backdrop from "@mui/material/Backdrop";
-import CircularProgress from "@mui/material/CircularProgress";
-import Button from "@mui/material/Button";
-import Box from "@mui/material/Box";
+import React from 'react'
+import { Routes, Route } from 'react-router-dom'
+import { useState } from 'react'
+import { createTheme } from '@mui/material'
+import { ThemeProvider } from '@mui/material/styles'
+import { CssBaseline } from '@mui/material'
+import AppBar from '../AppBar/AppBar'
+import Footer from '../Footer/Footer'
+import Backdrop from '@mui/material/Backdrop'
+import CircularProgress from '@mui/material/CircularProgress'
+import Box from '@mui/material/Box'
 
 // Pages
-import Home from "../../Pages/Home/Home";
-import Developer from "../../Pages/Developer/Developer";
-import Privacy from "../../Pages/Privacy/Privacy";
-import Support from "../../Pages/Support/Support";
-import About from "../../Pages/About/About";
-import CSGO from "../../Pages/Services/CSGO";
+import Home from '../../Pages/Home/Home'
+import Developer from '../../Pages/Developer/Developer'
+import Privacy from '../../Pages/Privacy/Privacy'
+import Support from '../../Pages/Support/Support'
+import About from '../../Pages/About/About'
+import CSGO from '../../Pages/Services/CSGO'
 // Themes
 const lightTheme = createTheme({
   palette: {
-    mode: "light",
+    mode: 'light',
     // primary: {
     //   main: "#212121",
     // },
@@ -29,22 +28,22 @@ const lightTheme = createTheme({
     //   main: "#3f51b5",
     // },
   },
-});
+})
 const darkTheme = createTheme({
   palette: {
-    mode: "dark",
+    mode: 'dark',
   },
-});
+})
 
 function MasterInterface(props) {
-  const [isDarkMode, setDarkMode] = useState(false);
-  const [openBackdrop, setOpenBackdrop] = useState(false);
+  const [isDarkMode, setDarkMode] = useState(false)
+  const [openBackdrop, setOpenBackdrop] = useState(false)
   return (
     <Box
       sx={{
-        display: "flex",
-        flexDirection: "column",
-        minHeight: "100vh",
+        display: 'flex',
+        flexDirection: 'column',
+        minHeight: '100vh',
       }}
     >
       <ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>
@@ -121,14 +120,14 @@ function MasterInterface(props) {
         </Routes>
         <Footer is_mobile={props.is_mobile} />
         <Backdrop
-          sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+          sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
           open={openBackdrop}
         >
           <CircularProgress color="inherit" />
         </Backdrop>
       </ThemeProvider>
     </Box>
-  );
+  )
 }
 
-export default MasterInterface;
+export default MasterInterface

@@ -1,138 +1,137 @@
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import MenuIcon from "@mui/icons-material/Menu";
-import Container from "@mui/material/Container";
-import Button from "@mui/material/Button";
-import MenuItem from "@mui/material/MenuItem";
-import SportsEsportsIcon from "@mui/icons-material/SportsEsports";
-import SwipeableDrawer from "@mui/material/SwipeableDrawer";
-import SettingsIcon from "@mui/icons-material/Settings";
-import { useEffect, useState } from "react";
-import CloseIcon from "@mui/icons-material/Close";
-import { Divider, Tooltip } from "@mui/material";
-import Cookies from "js-cookie";
-import ToggleButton from "@mui/material/ToggleButton";
-import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
-import LightModeIcon from "@mui/icons-material/LightMode";
-import BedtimeIcon from "@mui/icons-material/Bedtime";
-import CheckIcon from "@mui/icons-material/Check";
-import ComputerIcon from "@mui/icons-material/Computer";
-const pages = ["developer", "privacy", "support", "about"];
-const services = ["CSGO"];
+import AppBar from '@mui/material/AppBar'
+import Box from '@mui/material/Box'
+import Toolbar from '@mui/material/Toolbar'
+import IconButton from '@mui/material/IconButton'
+import Typography from '@mui/material/Typography'
+import MenuIcon from '@mui/icons-material/Menu'
+import Container from '@mui/material/Container'
+import Button from '@mui/material/Button'
+import MenuItem from '@mui/material/MenuItem'
+import SportsEsportsIcon from '@mui/icons-material/SportsEsports'
+import SwipeableDrawer from '@mui/material/SwipeableDrawer'
+import SettingsIcon from '@mui/icons-material/Settings'
+import { useEffect, useState } from 'react'
+import CloseIcon from '@mui/icons-material/Close'
+import { Divider, Tooltip } from '@mui/material'
+import Cookies from 'js-cookie'
+import ToggleButton from '@mui/material/ToggleButton'
+import ToggleButtonGroup from '@mui/material/ToggleButtonGroup'
+import LightModeIcon from '@mui/icons-material/LightMode'
+import BedtimeIcon from '@mui/icons-material/Bedtime'
+import CheckIcon from '@mui/icons-material/Check'
+import ComputerIcon from '@mui/icons-material/Computer'
+const pages = ['developer', 'privacy', 'support', 'about']
 
 const ResponsiveAppBar = (props) => {
-  const [drawerRight, setDrawerRight] = useState(false);
-  const [drawerLeft, setDrawerLeft] = useState(false);
-  const [siteTheme, setSiteTheme] = useState("light");
-  const [enableDisableCookies, setEnableDisableCookies] = useState("enable");
+  const [drawerRight, setDrawerRight] = useState(false)
+  const [drawerLeft, setDrawerLeft] = useState(false)
+  const [siteTheme, setSiteTheme] = useState('light')
+  const [enableDisableCookies, setEnableDisableCookies] = useState('enable')
 
   useEffect(() => {
     return () => {
-      const areCookiesAllowed = Cookies.get("cookiesAllowed");
-      const currentTheme = Cookies.get("siteTheme");
+      const areCookiesAllowed = Cookies.get('cookiesAllowed')
+      const currentTheme = Cookies.get('siteTheme')
 
-      if (areCookiesAllowed === "enable" || areCookiesAllowed !== undefined) {
-        setEnableDisableCookies(areCookiesAllowed);
-        setSiteTheme(currentTheme);
+      if (areCookiesAllowed === 'enable' || areCookiesAllowed !== undefined) {
+        setEnableDisableCookies(areCookiesAllowed)
+        setSiteTheme(currentTheme)
 
-        if (currentTheme === "system") {
+        if (currentTheme === 'system') {
           if (
             window.matchMedia &&
-            window.matchMedia("(prefers-color-scheme: dark)").matches
+            window.matchMedia('(prefers-color-scheme: dark)').matches
           ) {
-            props.set_dark_mode(true);
+            props.set_dark_mode(true)
           } else {
-            props.set_dark_mode(false);
+            props.set_dark_mode(false)
           }
-        } else if (currentTheme === "dark") {
-          props.set_dark_mode(true);
-        } else if (currentTheme === "light") {
-          props.set_dark_mode(false);
+        } else if (currentTheme === 'dark') {
+          props.set_dark_mode(true)
+        } else if (currentTheme === 'light') {
+          props.set_dark_mode(false)
         } else {
           if (
             window.matchMedia &&
-            window.matchMedia("(prefers-color-scheme: dark)").matches
+            window.matchMedia('(prefers-color-scheme: dark)').matches
           ) {
-            props.set_dark_mode(true);
+            props.set_dark_mode(true)
           } else {
-            props.set_dark_mode(false);
+            props.set_dark_mode(false)
           }
-          setSiteTheme("system");
+          setSiteTheme('system')
         }
       } else {
         if (
           window.matchMedia &&
-          window.matchMedia("(prefers-color-scheme: dark)").matches
+          window.matchMedia('(prefers-color-scheme: dark)').matches
         ) {
-          props.set_dark_mode(true);
+          props.set_dark_mode(true)
         } else {
-          props.set_dark_mode(false);
+          props.set_dark_mode(false)
         }
-        setSiteTheme("system");
-        setEnableDisableCookies("disable");
+        setSiteTheme('system')
+        setEnableDisableCookies('disable')
       }
-    };
-  }, []);
+    }
+  }, [props])
   const handleTheme = (event, myCurrentTheme) => {
     if (myCurrentTheme !== null) {
-      setSiteTheme(myCurrentTheme);
-      if (myCurrentTheme === "system") {
+      setSiteTheme(myCurrentTheme)
+      if (myCurrentTheme === 'system') {
         if (
           window.matchMedia &&
-          window.matchMedia("(prefers-color-scheme: dark)").matches
+          window.matchMedia('(prefers-color-scheme: dark)').matches
         ) {
-          props.set_dark_mode(true);
+          props.set_dark_mode(true)
         } else {
-          props.set_dark_mode(false);
+          props.set_dark_mode(false)
         }
       }
 
-      if (myCurrentTheme === "dark") {
-        props.set_dark_mode(true);
+      if (myCurrentTheme === 'dark') {
+        props.set_dark_mode(true)
       }
 
-      if (myCurrentTheme === "light") {
-        props.set_dark_mode(false);
+      if (myCurrentTheme === 'light') {
+        props.set_dark_mode(false)
       }
-      const arCookiesAllowed = Cookies.get("cookiesAllowed", {
-        path: "/",
+      const arCookiesAllowed = Cookies.get('cookiesAllowed', {
+        path: '/',
         expires: 7,
-        sameSite: "lax",
-      });
+        sameSite: 'lax',
+      })
 
-      if (arCookiesAllowed === "enable" && arCookiesAllowed !== undefined) {
-        Cookies.set("siteTheme", myCurrentTheme);
+      if (arCookiesAllowed === 'enable' && arCookiesAllowed !== undefined) {
+        Cookies.set('siteTheme', myCurrentTheme)
       }
     }
-  };
+  }
   const handleCookies = (event, myCurrentState) => {
     if (myCurrentState !== null) {
-      setEnableDisableCookies(myCurrentState);
-      Cookies.set("cookiesAllowed", myCurrentState, {
-        path: "/",
+      setEnableDisableCookies(myCurrentState)
+      Cookies.set('cookiesAllowed', myCurrentState, {
+        path: '/',
         expires: 7,
-        sameSite: "lax",
-      });
+        sameSite: 'lax',
+      })
 
-      if (myCurrentState === "disable") {
-        Cookies.remove("cookiesAllowed");
-        Cookies.remove("siteTheme");
+      if (myCurrentState === 'disable') {
+        Cookies.remove('cookiesAllowed')
+        Cookies.remove('siteTheme')
       }
     }
-  };
+  }
   const handleCloseLeftDrawer = (page_to_nav) => {
-    setDrawerLeft(false);
-    window.location = page_to_nav;
-  };
+    setDrawerLeft(false)
+    window.location = page_to_nav
+  }
   const handleLogoClick = (myLoc) => {
-    window.location = myLoc;
-  };
+    window.location = myLoc
+  }
   const capitalizeFirstLetter = (string) => {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-  };
+    return string.charAt(0).toUpperCase() + string.slice(1)
+  }
   return (
     <AppBar elevation={0} color="inherit" position="static">
       <Container>
@@ -140,10 +139,10 @@ const ResponsiveAppBar = (props) => {
           <IconButton
             color="inherit"
             disableRipple
-            onClick={() => handleLogoClick("/")}
+            onClick={() => handleLogoClick('/')}
           >
             <SportsEsportsIcon
-              sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}
+              sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }}
             />
             <Typography
               variant="h6"
@@ -152,17 +151,17 @@ const ResponsiveAppBar = (props) => {
               href="/"
               sx={{
                 mr: 2,
-                display: { xs: "none", md: "flex" },
+                display: { xs: 'none', md: 'flex' },
                 fontWeight: 700,
 
-                color: "inherit",
-                textDecoration: "none",
+                color: 'inherit',
+                textDecoration: 'none',
               }}
             >
               ggStats
             </Typography>
           </IconButton>
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <Tooltip title="Menu">
               <IconButton
                 size="large"
@@ -170,7 +169,7 @@ const ResponsiveAppBar = (props) => {
                 aria-controls="menu-appbar"
                 aria-haspopup="true"
                 onClick={() => {
-                  setDrawerLeft(!drawerLeft);
+                  setDrawerLeft(!drawerLeft)
                 }}
                 color="inherit"
               >
@@ -182,16 +181,16 @@ const ResponsiveAppBar = (props) => {
               anchor="left"
               open={drawerLeft}
               onClose={() => {
-                setDrawerLeft(!drawerLeft);
+                setDrawerLeft(!drawerLeft)
               }}
               onOpen={() => {
-                setDrawerLeft(!drawerLeft);
+                setDrawerLeft(!drawerLeft)
               }}
             >
               <Box width="300px" role="presentation">
                 <Box
                   sx={{
-                    display: "flex",
+                    display: 'flex',
                     borderRadius: 1,
                     m: 2,
                   }}
@@ -199,15 +198,15 @@ const ResponsiveAppBar = (props) => {
                   <IconButton
                     href="/"
                     disableRipple
-                    sx={{ flexGrow: 1, display: "flex", fontWeight: "bold" }}
+                    sx={{ flexGrow: 1, display: 'flex', fontWeight: 'bold' }}
                   >
                     <Typography
                       sx={{
                         flexGrow: 1,
-                        display: "flex",
-                        fontWeight: "bold",
-                        color: "inherit",
-                        textDecoration: "none",
+                        display: 'flex',
+                        fontWeight: 'bold',
+                        color: 'inherit',
+                        textDecoration: 'none',
                       }}
                       variant="p"
                       noWrap
@@ -218,7 +217,7 @@ const ResponsiveAppBar = (props) => {
                   </IconButton>
                   <IconButton
                     onClick={() => {
-                      setDrawerLeft(!drawerLeft);
+                      setDrawerLeft(!drawerLeft)
                     }}
                   >
                     <CloseIcon />
@@ -226,7 +225,7 @@ const ResponsiveAppBar = (props) => {
                 </Box>
 
                 <Typography
-                  sx={{ m: 1, marginTop: "10px", fontWeight: "bold" }}
+                  sx={{ m: 1, marginTop: '10px', fontWeight: 'bold' }}
                   color="text.secondary"
                 >
                   Menu
@@ -246,12 +245,12 @@ const ResponsiveAppBar = (props) => {
           </Box>
           <IconButton
             color="inherit"
-            onClick={() => handleLogoClick("/")}
+            onClick={() => handleLogoClick('/')}
             disableRipple
-            sx={{ mr: 2, display: { xs: "flex", md: "none" }, flexGrow: 1 }}
+            sx={{ mr: 2, display: { xs: 'flex', md: 'none' }, flexGrow: 1 }}
           >
             <SportsEsportsIcon
-              sx={{ display: { xs: "flex", md: "none" }, mr: 1 }}
+              sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }}
             />
             <Typography
               variant="h5"
@@ -260,17 +259,17 @@ const ResponsiveAppBar = (props) => {
               href=""
               sx={{
                 mr: 2,
-                display: { xs: "flex", md: "none" },
+                display: { xs: 'flex', md: 'none' },
                 flexGrow: 1,
-                fontWeight: "bold",
-                color: "inherit",
-                textDecoration: "none",
+                fontWeight: 'bold',
+                color: 'inherit',
+                textDecoration: 'none',
               }}
             >
               ggStats
             </Typography>
           </IconButton>
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
               <Button
                 color="inherit"
@@ -286,7 +285,7 @@ const ResponsiveAppBar = (props) => {
             <IconButton
               color="inherit"
               onClick={() => {
-                setDrawerRight(!drawerRight);
+                setDrawerRight(!drawerRight)
               }}
             >
               <SettingsIcon />
@@ -297,26 +296,26 @@ const ResponsiveAppBar = (props) => {
           anchor="right"
           open={drawerRight}
           onClose={() => {
-            setDrawerRight(!drawerRight);
+            setDrawerRight(!drawerRight)
           }}
           onOpen={() => {
-            setDrawerRight(!drawerRight);
+            setDrawerRight(!drawerRight)
           }}
         >
           <Box width="300px" role="presentation">
             <Box
               sx={{
-                display: "flex",
+                display: 'flex',
                 borderRadius: 1,
                 m: 2,
               }}
             >
-              <Typography sx={{ flexGrow: 1, fontWeight: "bold" }} variant="h5">
+              <Typography sx={{ flexGrow: 1, fontWeight: 'bold' }} variant="h5">
                 Site Settings
               </Typography>
               <IconButton
                 onClick={() => {
-                  setDrawerRight(!drawerRight);
+                  setDrawerRight(!drawerRight)
                 }}
               >
                 <CloseIcon />
@@ -324,7 +323,7 @@ const ResponsiveAppBar = (props) => {
             </Box>
             <Divider />
             <Typography
-              sx={{ m: 1, marginTop: "10px", fontWeight: "bold" }}
+              sx={{ m: 1, marginTop: '10px', fontWeight: 'bold' }}
               color="text.secondary"
             >
               Mode
@@ -332,9 +331,9 @@ const ResponsiveAppBar = (props) => {
 
             <Box
               sx={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
                 m: 1,
               }}
             >
@@ -348,12 +347,12 @@ const ResponsiveAppBar = (props) => {
                 <ToggleButton value="light">
                   <Box
                     sx={{
-                      display: "flex",
+                      display: 'flex',
                     }}
                   >
                     <LightModeIcon />
                     <Typography
-                      sx={{ marginLeft: "2px", textTransform: "none" }}
+                      sx={{ marginLeft: '2px', textTransform: 'none' }}
                     >
                       Light
                     </Typography>
@@ -362,12 +361,12 @@ const ResponsiveAppBar = (props) => {
                 <ToggleButton value="system">
                   <Box
                     sx={{
-                      display: "flex",
+                      display: 'flex',
                     }}
                   >
                     <ComputerIcon />
                     <Typography
-                      sx={{ marginLeft: "2px", textTransform: "none" }}
+                      sx={{ marginLeft: '2px', textTransform: 'none' }}
                     >
                       System
                     </Typography>
@@ -376,12 +375,12 @@ const ResponsiveAppBar = (props) => {
                 <ToggleButton value="dark">
                   <Box
                     sx={{
-                      display: "flex",
+                      display: 'flex',
                     }}
                   >
                     <BedtimeIcon />
                     <Typography
-                      sx={{ marginLeft: "2px", textTransform: "none" }}
+                      sx={{ marginLeft: '2px', textTransform: 'none' }}
                     >
                       Dark
                     </Typography>
@@ -391,16 +390,16 @@ const ResponsiveAppBar = (props) => {
             </Box>
 
             <Typography
-              sx={{ m: 1, marginTop: "10px", fontWeight: "bold" }}
+              sx={{ m: 1, marginTop: '10px', fontWeight: 'bold' }}
               color="text.secondary"
             >
               Cookies
             </Typography>
             <Box
               sx={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
                 m: 1,
               }}
             >
@@ -414,12 +413,12 @@ const ResponsiveAppBar = (props) => {
                 <ToggleButton value="enable">
                   <Box
                     sx={{
-                      display: "flex",
+                      display: 'flex',
                     }}
                   >
                     <CheckIcon />
                     <Typography
-                      sx={{ marginLeft: "2px", textTransform: "none" }}
+                      sx={{ marginLeft: '2px', textTransform: 'none' }}
                     >
                       Enable
                     </Typography>
@@ -429,12 +428,12 @@ const ResponsiveAppBar = (props) => {
                 <ToggleButton value="disable">
                   <Box
                     sx={{
-                      display: "flex",
+                      display: 'flex',
                     }}
                   >
                     <CloseIcon />
                     <Typography
-                      sx={{ marginLeft: "2px", textTransform: "none" }}
+                      sx={{ marginLeft: '2px', textTransform: 'none' }}
                     >
                       Disable
                     </Typography>
@@ -446,6 +445,6 @@ const ResponsiveAppBar = (props) => {
         </SwipeableDrawer>
       </Container>
     </AppBar>
-  );
-};
-export default ResponsiveAppBar;
+  )
+}
+export default ResponsiveAppBar

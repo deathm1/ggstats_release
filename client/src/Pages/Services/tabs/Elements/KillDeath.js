@@ -1,6 +1,6 @@
 import * as React from 'react'
 import Grid from '@mui/material/Grid'
-import { Paper, Typography } from '@mui/material'
+import { Typography } from '@mui/material'
 import { Pie } from 'react-chartjs-2'
 import List from '@mui/material/List'
 import ListItem from '@mui/material/ListItem'
@@ -10,16 +10,10 @@ import Avatar from '@mui/material/Avatar'
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents'
 import AssessmentIcon from '@mui/icons-material/Assessment'
 import Divider from '@mui/material/Divider'
-import ThumbDownOffAltIcon from '@mui/icons-material/ThumbDownOffAlt'
 import AirlineSeatFlatIcon from '@mui/icons-material/AirlineSeatFlat'
 import NumbersIcon from '@mui/icons-material/Numbers'
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js'
 ChartJS.register(ArcElement, Tooltip, Legend)
-const style = {
-  width: '100%',
-  maxWidth: 360,
-  bgcolor: 'background.paper',
-}
 
 export default function Matches(props) {
   for (var i = 0; i < props.stats.length; i++) {

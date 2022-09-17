@@ -1,5 +1,5 @@
-import { Button, Container, Link } from "@mui/material";
-import { Box } from "@mui/system";
+import { Container, Link } from '@mui/material'
+import { Box } from '@mui/system'
 
 export default function Devloper() {
   return (
@@ -9,8 +9,8 @@ export default function Devloper() {
           marginTop: 3,
           marginBottom: 3,
 
-          display: "flex",
-          flexDirection: "column",
+          display: 'flex',
+          flexDirection: 'column',
         }}
       >
         <h2>
@@ -33,5 +33,5 @@ export default function Devloper() {
         <Link href="https://github.com/deathm1">Github</Link>
       </Box>
     </Container>
-  );
+  )
 }

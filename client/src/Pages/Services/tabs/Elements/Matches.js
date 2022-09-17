@@ -14,11 +14,11 @@ import ThumbDownOffAltIcon from '@mui/icons-material/ThumbDownOffAlt'
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js'
 ChartJS.register(ArcElement, Tooltip, Legend)
 
-const style = {
-  width: '100%',
-  maxWidth: 360,
-  bgcolor: 'background.paper',
-}
+// const style = {
+//   width: '100%',
+//   maxWidth: 360,
+//   bgcolor: 'background.paper',
+// }
 
 export default function Matches(props) {
   return (

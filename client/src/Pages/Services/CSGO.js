@@ -1,163 +1,163 @@
-import * as React from "react";
-import { useEffect } from "react";
-import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
-import { Card } from "@mui/material";
-import { CopyToClipboard } from "react-copy-to-clipboard";
-import Tab from "@mui/material/Tab";
-import TabContext from "@mui/lab/TabContext";
-import TabList from "@mui/lab/TabList";
-import TabPanel from "@mui/lab/TabPanel";
-import { useParams } from "react-router-dom";
-import Container from "@mui/material/Container";
-import axios from "axios";
-import Typography from "@mui/material/Typography";
-import { Button, CardActions } from "@mui/material";
-import { load } from "recaptcha-v3";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
-import Slide from "@mui/material/Slide";
-import LinearProgress from "@mui/material/LinearProgress";
+import * as React from 'react'
+import { useEffect } from 'react'
+import Box from '@mui/material/Box'
+import Grid from '@mui/material/Grid'
+import { Card } from '@mui/material'
+import { CopyToClipboard } from 'react-copy-to-clipboard'
+import Tab from '@mui/material/Tab'
+import TabContext from '@mui/lab/TabContext'
+import TabList from '@mui/lab/TabList'
+import TabPanel from '@mui/lab/TabPanel'
+import { useParams } from 'react-router-dom'
+import Container from '@mui/material/Container'
+import axios from 'axios'
+import Typography from '@mui/material/Typography'
+import { Button, CardActions } from '@mui/material'
+import { load } from 'recaptcha-v3'
+import CardContent from '@mui/material/CardContent'
+import CardMedia from '@mui/material/CardMedia'
+import Dialog from '@mui/material/Dialog'
+import DialogActions from '@mui/material/DialogActions'
+import DialogContent from '@mui/material/DialogContent'
+import DialogContentText from '@mui/material/DialogContentText'
+import DialogTitle from '@mui/material/DialogTitle'
+import Slide from '@mui/material/Slide'
+import LinearProgress from '@mui/material/LinearProgress'
 
 //tabs
-import Dashboard from "./tabs/Dashboard";
-import Weapons from "./tabs/Weapons";
-import Maps from "./tabs/Maps";
+import Dashboard from './tabs/Dashboard'
+import Weapons from './tabs/Weapons'
+import Maps from './tabs/Maps'
 
 const Transition = React.forwardRef(function Transition(props, ref) {
-  return <Slide direction="up" ref={ref} {...props} />;
-});
+  return <Slide direction="up" ref={ref} {...props} />
+})
 
 //config
 const {
   REACT_APP_GET_APP_DETAILS,
   REACT_APP_RECAPTCHA_TOKEN,
   REACT_APP_GENERATE_SHARABLE_LINK,
-} = process.env;
+} = process.env
 
 export default function CSGO(props) {
-  const [responseData, setResponseData] = React.useState(null);
-  const [isDataFetched, setIsDataFetched] = React.useState(false);
-  const [openDialog, setOpenDialog] = React.useState(false);
-  const [sharableLoading, setsharableLoading] = React.useState(false);
-  const [sharableLink, setSharableLink] = React.useState("");
-  const [enalbesharableCopy, setenalbesharableCopy] = React.useState(false);
+  const [responseData, setResponseData] = React.useState(null)
+  const [isDataFetched, setIsDataFetched] = React.useState(false)
+  const [openDialog, setOpenDialog] = React.useState(false)
+  const [sharableLoading, setsharableLoading] = React.useState(false)
+  const [sharableLink, setSharableLink] = React.useState('')
+  const [enalbesharableCopy, setenalbesharableCopy] = React.useState(false)
   const handleClickOpen = () => {
-    setOpenDialog(true);
-  };
+    setOpenDialog(true)
+  }
 
   const handleClose = () => {
-    setOpenDialog(false);
-  };
+    setOpenDialog(false)
+  }
 
   const generateSharableLink = () => {
-    setsharableLoading(true);
+    setsharableLoading(true)
     load(REACT_APP_RECAPTCHA_TOKEN, {
       useRecaptchaNet: true,
       autoHideBadge: true,
     }).then((recaptcha) => {
       recaptcha
-        .execute("submit")
+        .execute('submit')
         .then((token) => {
           axios({
-            method: "post",
+            method: 'post',
             url: REACT_APP_GENERATE_SHARABLE_LINK,
             data: {
               handle: responseData.steamID,
-              platformName: "STEAM",
+              platformName: 'STEAM',
               endPoint: 0,
             },
             headers: {
-              "Content-Type": "application/json",
+              'Content-Type': 'application/json',
               response: token,
             },
           })
             .then(function (response) {
-              setSharableLink(response.data.id);
-              setenalbesharableCopy(true);
+              setSharableLink(response.data.id)
+              setenalbesharableCopy(true)
             })
             .catch(function (error) {
-              setenalbesharableCopy(false);
+              setenalbesharableCopy(false)
             })
             .then(function () {
-              setsharableLoading(false);
-            });
+              setsharableLoading(false)
+            })
         })
         .catch((error) => {
-          setenalbesharableCopy(false);
-          setsharableLoading(false);
-        });
-    });
-  };
+          setenalbesharableCopy(false)
+          setsharableLoading(false)
+        })
+    })
+  }
 
-  const [value, setValue] = React.useState("1");
+  const [value, setValue] = React.useState('1')
 
   function _calculateAge(birthday) {
     // birthday is a date
-    var ageDifMs = Date.now() - birthday.getTime();
-    var ageDate = new Date(ageDifMs); // miliseconds from epoch
-    return Math.abs(ageDate.getUTCFullYear() - 1970);
+    var ageDifMs = Date.now() - birthday.getTime()
+    var ageDate = new Date(ageDifMs) // miliseconds from epoch
+    return Math.abs(ageDate.getUTCFullYear() - 1970)
   }
 
   const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
-  const { handle } = useParams();
+    setValue(newValue)
+  }
+  const { handle } = useParams()
   useEffect(() => {
     return () => {
-      props.set_open_backdrop(true);
+      props.set_open_backdrop(true)
       load(REACT_APP_RECAPTCHA_TOKEN, {
         useRecaptchaNet: true,
         autoHideBadge: true,
       }).then((recaptcha) => {
         recaptcha
-          .execute("submit")
+          .execute('submit')
           .then((token) => {
             axios({
-              method: "post",
+              method: 'post',
               url: `${REACT_APP_GET_APP_DETAILS}0`,
               data: {
                 handle: handle,
               },
               headers: {
-                "Content-Type": "application/json",
+                'Content-Type': 'application/json',
                 response: token,
               },
             })
               .then(function (response) {
-                props.set_open_backdrop(false);
-                setResponseData(response.data);
-                setIsDataFetched(true);
+                props.set_open_backdrop(false)
+                setResponseData(response.data)
+                setIsDataFetched(true)
               })
               .catch(function (error) {
-                props.set_open_backdrop(false);
-                setIsDataFetched(false);
+                props.set_open_backdrop(false)
+                setIsDataFetched(false)
               })
               .then(function () {
-                props.set_open_backdrop(false);
-              });
+                props.set_open_backdrop(false)
+              })
           })
           .catch((error) => {
-            props.set_open_backdrop(false);
-            setIsDataFetched(false);
-          });
-      });
-    };
-  }, []);
+            props.set_open_backdrop(false)
+            setIsDataFetched(false)
+          })
+      })
+    }
+  }, [props, handle])
   if (isDataFetched) {
     return (
       <Container>
         <Box
           sx={{
             marginTop: 3,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
           }}
         >
           <Grid container justifyContent="center">
@@ -181,20 +181,20 @@ export default function CSGO(props) {
                   </Typography>
 
                   <Typography variant="body2" color="text.secondary">
-                    created this profile on{" "}
+                    created this profile on{' '}
                     <b>
                       {new Date(
-                        responseData.playerSummary.timecreated * 1000
-                      ).toLocaleString("en-IN")}
+                        responseData.playerSummary.timecreated * 1000,
+                      ).toLocaleString('en-IN')}
                     </b>
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
-                    has been using it for{" "}
+                    has been using it for{' '}
                     <b>
                       {_calculateAge(
-                        new Date(responseData.playerSummary.timecreated * 1000)
+                        new Date(responseData.playerSummary.timecreated * 1000),
                       )}
-                    </b>{" "}
+                    </b>{' '}
                     year(s).
                   </Typography>
 
@@ -247,7 +247,7 @@ export default function CSGO(props) {
                 <TabPanel value="2">
                   <Weapons
                     stats={responseData.csgoData.stats.sort(function (a, b) {
-                      return b.value - a.value;
+                      return b.value - a.value
                     })}
                   />
                 </TabPanel>
@@ -255,7 +255,7 @@ export default function CSGO(props) {
                 <TabPanel value="3">
                   <Maps
                     stats={responseData.csgoData.stats.sort(function (a, b) {
-                      return b.value - a.value;
+                      return b.value - a.value
                     })}
                   />
                 </TabPanel>
@@ -270,7 +270,7 @@ export default function CSGO(props) {
           onClose={handleClose}
           aria-describedby="alert-dialog-slide-description"
         >
-          <DialogTitle>{"Generate Sharable Link"}</DialogTitle>
+          <DialogTitle>{'Generate Sharable Link'}</DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-dialog-slide-description">
               With ggstats you can share any CSGO Profile for free by generating
@@ -283,15 +283,15 @@ export default function CSGO(props) {
                   Click Here to copy link
                   <br></br>
                   <CopyToClipboard text={sharableLink}>
-                    <Button style={{ textTransform: "none" }}>
+                    <Button style={{ textTransform: 'none' }}>
                       {sharableLink}
                     </Button>
                   </CopyToClipboard>
                 </>
               ) : (
-                ""
+                ''
               )}
-              {sharableLoading ? <LinearProgress /> : ""}
+              {sharableLoading ? <LinearProgress /> : ''}
             </DialogContentText>
           </DialogContent>
           <DialogActions>
@@ -300,16 +300,16 @@ export default function CSGO(props) {
           </DialogActions>
         </Dialog>
       </Container>
-    );
+    )
   } else {
     return (
       <Container>
         <Box
           sx={{
             marginTop: 3,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
           }}
         >
           <Typography variant="h4">Fetching Data...</Typography>
@@ -325,6 +325,6 @@ export default function CSGO(props) {
           </Typography>
         </Box>
       </Container>
-    );
+    )
   }
 }
