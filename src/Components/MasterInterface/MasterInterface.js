@@ -17,6 +17,7 @@ import Privacy from '../../Pages/Privacy/Privacy'
 import Support from '../../Pages/Support/Support'
 import About from '../../Pages/About/About'
 import CSGO from '../../Pages/Services/CSGO'
+import ShortLinkHandler from '../../Pages/ShortLinkHandler/ShortLinkHandler'
 // Themes
 const lightTheme = createTheme({
   palette: {
@@ -67,6 +68,17 @@ function MasterInterface(props) {
             path="/service/csgo/:handle"
             element={
               <CSGO
+                is_dark_mode={isDarkMode}
+                is_mobile={props.is_mobile}
+                set_open_backdrop={setOpenBackdrop}
+              />
+            }
+          />
+          <Route
+            exact
+            path="/s/:handle"
+            element={
+              <ShortLinkHandler
                 is_dark_mode={isDarkMode}
                 is_mobile={props.is_mobile}
                 set_open_backdrop={setOpenBackdrop}
