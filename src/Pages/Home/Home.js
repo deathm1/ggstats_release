@@ -36,6 +36,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 export default function Home(props) {
   const [anchorEl, setAnchorEl] = React.useState(null)
+  const [currentURL, setCurrentURL] = React.useState('MY URL')
   const [loading, setLoading] = React.useState(false)
   const [currentIndex, setCurrentIndex] = React.useState(0)
   const [currentSelection, setCurrentSelection] = React.useState('Select App')
@@ -102,51 +103,52 @@ export default function Home(props) {
   const shortURLHandler = (myURL) => {
     const myRegex = new RegExp('^[a-zA-Z0-9]{6}$')
     if (myRegex.test(myURL)) {
-      load(REACT_APP_RECAPTCHA_TOKEN, {
-        useRecaptchaNet: true,
-        autoHideBadge: true,
-      }).then((recaptcha) => {
-        recaptcha
-          .execute('submit')
-          .then((token) => {
-            axios({
-              method: 'post',
-              url: REACT_APP_GET_SHARABLE_LINK,
-              data: {
-                sharebleString: myURL,
-              },
-              headers: {
-                'Content-Type': 'application/json',
-                response: token,
-              },
-            })
-              .then(function (response) {
-                if (response.data.data.endPoint === 0) {
-                  if (response.data.success) {
-                    setOpenDialog(true)
-                    setnavigateLink(
-                      `/service/csgo/${response.data.data.handle}`,
-                    )
-                  }
-                }
-              })
-              .catch(function (error) {
-                setLoading(false)
-                setOpenSnack(true)
-                setSnackMessage(error.response.data.status)
-              })
-              .then(function () {
-                setLoading(false)
-              })
-          })
-          .catch((error) => {
-            setLoading(false)
-            setOpenSnack(true)
-            setSnackMessage(
-              'Something went wrong while processing request data.',
-            )
-          })
-      })
+      console.log(myURL)
+      // load(REACT_APP_RECAPTCHA_TOKEN, {
+      //   useRecaptchaNet: true,
+      //   autoHideBadge: true,
+      // }).then((recaptcha) => {
+      //   recaptcha
+      //     .execute('submit')
+      //     .then((token) => {
+      //       axios({
+      //         method: 'post',
+      //         url: REACT_APP_GET_SHARABLE_LINK,
+      //         data: {
+      //           sharebleString: myURL,
+      //         },
+      //         headers: {
+      //           'Content-Type': 'application/json',
+      //           response: token,
+      //         },
+      //       })
+      //         .then(function (response) {
+      //           if (response.data.data.endPoint === 0) {
+      //             if (response.data.success) {
+      //               setOpenDialog(true)
+      //               setnavigateLink(
+      //                 `/service/csgo/${response.data.data.handle}`,
+      //               )
+      //             }
+      //           }
+      //         })
+      //         .catch(function (error) {
+      //           setLoading(false)
+      //           setOpenSnack(true)
+      //           setSnackMessage(error.response.data.status)
+      //         })
+      //         .then(function () {
+      //           setLoading(false)
+      //         })
+      //     })
+      //     .catch((error) => {
+      //       setLoading(false)
+      //       setOpenSnack(true)
+      //       setSnackMessage(
+      //         'Something went wrong while processing request data.',
+      //       )
+      //     })
+      // })
     } else {
       setOpenSnack(true)
       setSnackMessage('Error, Invalid URL / Short URL.')
