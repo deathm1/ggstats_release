@@ -4,8 +4,6 @@ import Paper from '@mui/material/Paper'
 import InputBase from '@mui/material/InputBase'
 import LoadingButton from '@mui/lab/LoadingButton'
 import Menu from '@mui/material/Menu'
-import { useParams } from 'react-router-dom'
-
 import SearchIcon from '@mui/icons-material/Search'
 import MenuItem from '@mui/material/MenuItem'
 import { Button, Typography } from '@mui/material'
@@ -22,7 +20,7 @@ import DialogContentText from '@mui/material/DialogContentText'
 import DialogTitle from '@mui/material/DialogTitle'
 import Slide from '@mui/material/Slide'
 const {
-  // REACT_APP_GET_SHARABLE_LINK,
+  REACT_APP_GET_SHARABLE_LINK,
   REACT_APP_STEAM_QUERY_NORMALIZER,
   REACT_APP_RECAPTCHA_TOKEN,
 } = process.env
@@ -38,7 +36,6 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 export default function Home(props) {
   const [anchorEl, setAnchorEl] = React.useState(null)
-  const [currentURL, setCurrentURL] = React.useState('MY URL')
   const [loading, setLoading] = React.useState(false)
   const [currentIndex, setCurrentIndex] = React.useState(0)
   const [currentSelection, setCurrentSelection] = React.useState('Select App')
@@ -101,59 +98,55 @@ export default function Home(props) {
       }
     }
   }, [])
-  const { handle } = useParams()
 
   const shortURLHandler = (myURL) => {
     const myRegex = new RegExp('^[a-zA-Z0-9]{6}$')
     if (myRegex.test(myURL)) {
-      console.log(myURL)
-      setCurrentURL(handle)
-      setnavigateLink(myURL)
-      // load(REACT_APP_RECAPTCHA_TOKEN, {
-      //   useRecaptchaNet: true,
-      //   autoHideBadge: true,
-      // }).then((recaptcha) => {
-      //   recaptcha
-      //     .execute('submit')
-      //     .then((token) => {
-      //       axios({
-      //         method: 'post',
-      //         url: REACT_APP_GET_SHARABLE_LINK,
-      //         data: {
-      //           sharebleString: myURL,
-      //         },
-      //         headers: {
-      //           'Content-Type': 'application/json',
-      //           response: token,
-      //         },
-      //       })
-      //         .then(function (response) {
-      //           if (response.data.data.endPoint === 0) {
-      //             if (response.data.success) {
-      //               setOpenDialog(true)
-      //               setnavigateLink(
-      //                 `/service/csgo/${response.data.data.handle}`,
-      //               )
-      //             }
-      //           }
-      //         })
-      //         .catch(function (error) {
-      //           setLoading(false)
-      //           setOpenSnack(true)
-      //           setSnackMessage(error.response.data.status)
-      //         })
-      //         .then(function () {
-      //           setLoading(false)
-      //         })
-      //     })
-      //     .catch((error) => {
-      //       setLoading(false)
-      //       setOpenSnack(true)
-      //       setSnackMessage(
-      //         'Something went wrong while processing request data.',
-      //       )
-      //     })
-      // })
+      load(REACT_APP_RECAPTCHA_TOKEN, {
+        useRecaptchaNet: true,
+        autoHideBadge: true,
+      }).then((recaptcha) => {
+        recaptcha
+          .execute('submit')
+          .then((token) => {
+            axios({
+              method: 'post',
+              url: REACT_APP_GET_SHARABLE_LINK,
+              data: {
+                sharebleString: myURL,
+              },
+              headers: {
+                'Content-Type': 'application/json',
+                response: token,
+              },
+            })
+              .then(function (response) {
+                if (response.data.data.endPoint === 0) {
+                  if (response.data.success) {
+                    setOpenDialog(true)
+                    setnavigateLink(
+                      `/service/csgo/${response.data.data.handle}`,
+                    )
+                  }
+                }
+              })
+              .catch(function (error) {
+                setLoading(false)
+                setOpenSnack(true)
+                setSnackMessage(error.response.data.status)
+              })
+              .then(function () {
+                setLoading(false)
+              })
+          })
+          .catch((error) => {
+            setLoading(false)
+            setOpenSnack(true)
+            setSnackMessage(
+              'Something went wrong while processing request data.',
+            )
+          })
+      })
     } else {
       setOpenSnack(true)
       setSnackMessage('Error, Invalid URL / Short URL.')
@@ -191,7 +184,6 @@ export default function Home(props) {
                   window.location = `/service/csgo/${response.data.steamId}`
                 })
                 .catch(function (error) {
-                  console.log(error)
                   setLoading(false)
                   setOpenSnack(true)
                   setSnackMessage(
@@ -340,7 +332,6 @@ export default function Home(props) {
         Choose your platform from the dropdown and enter your username/handle
         and get statistics instantly.
       </Typography>
-      <>{currentURL}</>
       <Box sx={{ width: props.is_mobile ? '100%' : '60%' }}>
         <Grid container rowSpacing={1} columnSpacing={1}>
           <Grid item xs={12}>
