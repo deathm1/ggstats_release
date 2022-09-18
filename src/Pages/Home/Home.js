@@ -20,7 +20,7 @@ import DialogContentText from '@mui/material/DialogContentText'
 import DialogTitle from '@mui/material/DialogTitle'
 import Slide from '@mui/material/Slide'
 const {
-  REACT_APP_GET_SHARABLE_LINK,
+  // REACT_APP_GET_SHARABLE_LINK,
   REACT_APP_STEAM_QUERY_NORMALIZER,
   REACT_APP_RECAPTCHA_TOKEN,
 } = process.env
@@ -104,6 +104,8 @@ export default function Home(props) {
     const myRegex = new RegExp('^[a-zA-Z0-9]{6}$')
     if (myRegex.test(myURL)) {
       console.log(myURL)
+      setCurrentURL(myURL)
+      setnavigateLink(myURL)
       // load(REACT_APP_RECAPTCHA_TOKEN, {
       //   useRecaptchaNet: true,
       //   autoHideBadge: true,
