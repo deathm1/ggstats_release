@@ -109,46 +109,49 @@ export default function CSGO(props) {
   }
   const { handle } = useParams()
   useEffect(() => {
-    return () => {
-      props.set_open_backdrop(true)
-      load(REACT_APP_RECAPTCHA_TOKEN, {
-        useRecaptchaNet: true,
-        autoHideBadge: true,
-      }).then((recaptcha) => {
-        recaptcha
-          .execute('submit')
-          .then((token) => {
-            axios({
-              method: 'post',
-              url: `${REACT_APP_GET_APP_DETAILS}0`,
-              data: {
-                handle: handle,
-              },
-              headers: {
-                'Content-Type': 'application/json',
-                response: token,
-              },
-            })
-              .then(function (response) {
-                props.set_open_backdrop(false)
-                setResponseData(response.data)
-                setIsDataFetched(true)
-              })
-              .catch(function (error) {
-                props.set_open_backdrop(false)
-                setIsDataFetched(false)
-              })
-              .then(function () {
-                props.set_open_backdrop(false)
-              })
-          })
-          .catch((error) => {
-            props.set_open_backdrop(false)
-            setIsDataFetched(false)
-          })
-      })
-    }
+    loadOnlyonce()
   }, [])
+
+  const loadOnlyonce = () => {
+    props.set_open_backdrop(true)
+    load(REACT_APP_RECAPTCHA_TOKEN, {
+      useRecaptchaNet: true,
+      autoHideBadge: true,
+    }).then((recaptcha) => {
+      recaptcha
+        .execute('submit')
+        .then((token) => {
+          axios({
+            method: 'post',
+            url: `${REACT_APP_GET_APP_DETAILS}0`,
+            data: {
+              handle: handle,
+            },
+            headers: {
+              'Content-Type': 'application/json',
+              response: token,
+            },
+          })
+            .then(function (response) {
+              props.set_open_backdrop(false)
+              setResponseData(response.data)
+              setIsDataFetched(true)
+            })
+            .catch(function (error) {
+              props.set_open_backdrop(false)
+              setIsDataFetched(false)
+            })
+            .then(function () {
+              props.set_open_backdrop(false)
+            })
+        })
+        .catch((error) => {
+          props.set_open_backdrop(false)
+          setIsDataFetched(false)
+        })
+    })
+  }
+
   if (isDataFetched) {
     return (
       <Container>
