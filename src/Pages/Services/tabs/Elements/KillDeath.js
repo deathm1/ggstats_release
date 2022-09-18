@@ -14,11 +14,11 @@ import AirlineSeatFlatIcon from '@mui/icons-material/AirlineSeatFlat'
 import NumbersIcon from '@mui/icons-material/Numbers'
 
 export default function Matches(props) {
-  for (var i = 0; i < props.stats.length; i++) {
-    if (props.stats[i].name === 'total_kills_headshot') {
-      console.log(i)
-    }
-  }
+  // for (var i = 0; i < props.stats.length; i++) {
+  //   if (props.stats[i].name === 'total_kills_headshot') {
+  //     console.log(i)
+  //   }
+  // }
   return (
     <Grid sx={{ marginBottom: 4, marginTop: 2 }} container spacing={1}>
       <Grid item lg={8} xs={12}>
