@@ -11,8 +11,6 @@ import EmojiEventsIcon from '@mui/icons-material/EmojiEvents'
 import AssessmentIcon from '@mui/icons-material/Assessment'
 import Divider from '@mui/material/Divider'
 import ThumbDownOffAltIcon from '@mui/icons-material/ThumbDownOffAlt'
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js'
-ChartJS.register(ArcElement, Tooltip, Legend)
 
 // const style = {
 //   width: '100%',

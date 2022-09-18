@@ -12,8 +12,6 @@ import AssessmentIcon from '@mui/icons-material/Assessment'
 import Divider from '@mui/material/Divider'
 import AirlineSeatFlatIcon from '@mui/icons-material/AirlineSeatFlat'
 import NumbersIcon from '@mui/icons-material/Numbers'
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js'
-ChartJS.register(ArcElement, Tooltip, Legend)
 
 export default function Matches(props) {
   for (var i = 0; i < props.stats.length; i++) {
