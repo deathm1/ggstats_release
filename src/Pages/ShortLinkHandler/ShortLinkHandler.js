@@ -7,7 +7,7 @@ export default function ShortLinkHandler(props) {
     return () => {
       const raw = window.location.pathname
       if (raw !== '/') {
-        const url = raw.substring(3, raw.length)
+        const url = raw
         seturl(url)
       }
     }
