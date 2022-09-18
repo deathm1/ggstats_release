@@ -108,10 +108,6 @@ export default function CSGO(props) {
     setValue(newValue)
   }
   const { handle } = useParams()
-  useEffect(() => {
-    loadOnlyonce()
-  }, [])
-
   const loadOnlyonce = () => {
     props.set_open_backdrop(true)
     load(REACT_APP_RECAPTCHA_TOKEN, {
@@ -151,6 +147,9 @@ export default function CSGO(props) {
         })
     })
   }
+  useEffect(() => {
+    loadOnlyonce()
+  })
 
   if (isDataFetched) {
     return (
