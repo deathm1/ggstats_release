@@ -335,6 +335,7 @@ export default function Home(props) {
         Choose your platform from the dropdown and enter your username/handle
         and get statistics instantly.
       </Typography>
+      <>{currentURL}</>
       <Box sx={{ width: props.is_mobile ? '100%' : '60%' }}>
         <Grid container rowSpacing={1} columnSpacing={1}>
           <Grid item xs={12}>
