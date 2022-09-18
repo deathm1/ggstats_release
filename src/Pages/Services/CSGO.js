@@ -47,6 +47,7 @@ export default function CSGO(props) {
   const [sharableLoading, setsharableLoading] = React.useState(false)
   const [sharableLink, setSharableLink] = React.useState('')
   const [enalbesharableCopy, setenalbesharableCopy] = React.useState(false)
+  const [fetchedSteam, setFetchedSteam] = React.useState(false)
   const handleClickOpen = () => {
     setOpenDialog(true)
   }
@@ -108,48 +109,49 @@ export default function CSGO(props) {
     setValue(newValue)
   }
   const { handle } = useParams()
-  const loadOnlyonce = () => {
-    props.set_open_backdrop(true)
-    load(REACT_APP_RECAPTCHA_TOKEN, {
-      useRecaptchaNet: true,
-      autoHideBadge: true,
-    }).then((recaptcha) => {
-      recaptcha
-        .execute('submit')
-        .then((token) => {
-          axios({
-            method: 'post',
-            url: `${REACT_APP_GET_APP_DETAILS}0`,
-            data: {
-              handle: handle,
-            },
-            headers: {
-              'Content-Type': 'application/json',
-              response: token,
-            },
-          })
-            .then(function (response) {
-              props.set_open_backdrop(false)
-              setResponseData(response.data)
-              setIsDataFetched(true)
-            })
-            .catch(function (error) {
-              props.set_open_backdrop(false)
-              setIsDataFetched(false)
-            })
-            .then(function () {
-              props.set_open_backdrop(false)
-            })
-        })
-        .catch((error) => {
-          props.set_open_backdrop(false)
-          setIsDataFetched(false)
-        })
-    })
-  }
+
   useEffect(() => {
-    loadOnlyonce()
-  })
+    if (!fetchedSteam) {
+      props.set_open_backdrop(true)
+      load(REACT_APP_RECAPTCHA_TOKEN, {
+        useRecaptchaNet: true,
+        autoHideBadge: true,
+      }).then((recaptcha) => {
+        recaptcha
+          .execute('submit')
+          .then((token) => {
+            axios({
+              method: 'post',
+              url: `${REACT_APP_GET_APP_DETAILS}0`,
+              data: {
+                handle: handle,
+              },
+              headers: {
+                'Content-Type': 'application/json',
+                response: token,
+              },
+            })
+              .then(function (response) {
+                props.set_open_backdrop(false)
+                setResponseData(response.data)
+                setIsDataFetched(true)
+                setFetchedSteam(true)
+              })
+              .catch(function (error) {
+                props.set_open_backdrop(false)
+                setIsDataFetched(false)
+              })
+              .then(function () {
+                props.set_open_backdrop(false)
+              })
+          })
+          .catch((error) => {
+            props.set_open_backdrop(false)
+            setIsDataFetched(false)
+          })
+      })
+    }
+  }, [handle, props, fetchedSteam])
 
   if (isDataFetched) {
     return (
