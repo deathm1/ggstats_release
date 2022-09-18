@@ -10,6 +10,7 @@ export default function ShortLinkHandler(props) {
     return () => {
       const url = handle
       seturl(url)
+      console.log(url)
     }
   }, [handle])
   return <>{url}</>
