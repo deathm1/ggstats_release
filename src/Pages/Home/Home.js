@@ -184,6 +184,7 @@ export default function Home(props) {
                   window.location = `/service/csgo/${response.data.steamId}`
                 })
                 .catch(function (error) {
+                  console.log(error)
                   setLoading(false)
                   setOpenSnack(true)
                   setSnackMessage(
