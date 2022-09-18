@@ -58,42 +58,66 @@ export default function CSGO(props) {
 
   const generateSharableLink = () => {
     setsharableLoading(true)
-    load(REACT_APP_RECAPTCHA_TOKEN, {
-      useRecaptchaNet: true,
-      autoHideBadge: true,
-    }).then((recaptcha) => {
-      recaptcha
-        .execute('submit')
-        .then((token) => {
-          axios({
-            method: 'post',
-            url: REACT_APP_GENERATE_SHARABLE_LINK,
-            data: {
-              handle: responseData.steamID,
-              platformName: 'STEAM',
-              endPoint: 0,
-            },
-            headers: {
-              'Content-Type': 'application/json',
-              response: token,
-            },
-          })
-            .then(function (response) {
-              setSharableLink(response.data.id)
-              setenalbesharableCopy(true)
-            })
-            .catch(function (error) {
-              setenalbesharableCopy(false)
-            })
-            .then(function () {
-              setsharableLoading(false)
-            })
-        })
-        .catch((error) => {
-          setenalbesharableCopy(false)
-          setsharableLoading(false)
-        })
+    // load(REACT_APP_RECAPTCHA_TOKEN, {
+    //   useRecaptchaNet: true,
+    //   autoHideBadge: true,
+    // }).then((recaptcha) => {
+    //   recaptcha
+    //     .execute('submit')
+    //     .then((token) => {
+    //       axios({
+    //         method: 'post',
+    //         url: REACT_APP_GENERATE_SHARABLE_LINK,
+    //         data: {
+    //           handle: responseData.steamID,
+    //           platformName: 'STEAM',
+    //           endPoint: 0,
+    //         },
+    //         headers: {
+    //           'Content-Type': 'application/json',
+    //           response: token,
+    //         },
+    //       })
+    //         .then(function (response) {
+    //           setSharableLink(response.data.id)
+    //           setenalbesharableCopy(true)
+    //         })
+    //         .catch(function (error) {
+    //           setenalbesharableCopy(false)
+    //         })
+    //         .then(function () {
+    //           setsharableLoading(false)
+    //         })
+    //     })
+    //     .catch((error) => {
+    //       setenalbesharableCopy(false)
+    //       setsharableLoading(false)
+    //     })
+    // })
+
+    axios({
+      method: 'post',
+      url: REACT_APP_GENERATE_SHARABLE_LINK,
+      data: {
+        handle: responseData.steamID,
+        platformName: 'STEAM',
+        endPoint: 0,
+      },
+      headers: {
+        'Content-Type': 'application/json',
+        response: token,
+      },
     })
+      .then(function (response) {
+        setSharableLink(response.data.id)
+        setenalbesharableCopy(true)
+      })
+      .catch(function (error) {
+        setenalbesharableCopy(false)
+      })
+      .then(function () {
+        setsharableLoading(false)
+      })
   }
 
   const [value, setValue] = React.useState('1')
