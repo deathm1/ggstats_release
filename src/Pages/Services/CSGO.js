@@ -148,7 +148,7 @@ export default function CSGO(props) {
           })
       })
     }
-  }, [props, handle])
+  }, [])
   if (isDataFetched) {
     return (
       <Container>
