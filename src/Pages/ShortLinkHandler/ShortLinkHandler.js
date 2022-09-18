@@ -8,11 +8,8 @@ export default function ShortLinkHandler(props) {
 
   React.useEffect(() => {
     return () => {
-      const raw = window.location.pathname
-      if (raw !== '/') {
-        const url = handle
-        seturl(url)
-      }
+      const url = handle
+      seturl(url)
     }
   }, [handle])
   return <>{url}</>
