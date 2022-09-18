@@ -4,6 +4,8 @@ import Paper from '@mui/material/Paper'
 import InputBase from '@mui/material/InputBase'
 import LoadingButton from '@mui/lab/LoadingButton'
 import Menu from '@mui/material/Menu'
+import { useParams } from 'react-router-dom'
+
 import SearchIcon from '@mui/icons-material/Search'
 import MenuItem from '@mui/material/MenuItem'
 import { Button, Typography } from '@mui/material'
@@ -99,12 +101,13 @@ export default function Home(props) {
       }
     }
   }, [])
+  const { handle } = useParams()
 
   const shortURLHandler = (myURL) => {
     const myRegex = new RegExp('^[a-zA-Z0-9]{6}$')
     if (myRegex.test(myURL)) {
       console.log(myURL)
-      setCurrentURL(myURL)
+      setCurrentURL(handle)
       setnavigateLink(myURL)
       // load(REACT_APP_RECAPTCHA_TOKEN, {
       //   useRecaptchaNet: true,
