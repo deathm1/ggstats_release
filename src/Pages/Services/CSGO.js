@@ -105,7 +105,6 @@ export default function CSGO(props) {
       },
       headers: {
         'Content-Type': 'application/json',
-        response: token,
       },
     })
       .then(function (response) {
